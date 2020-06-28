@@ -23,6 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  tflite: any
+  image_picker: ^0.6.7+2  # https://pub.dev/packages/image_picker/versions/0.6.7+2#-installing-tab-
 
 
   # The following adds the Cupertino Icons font to your application.
