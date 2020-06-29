@@ -1,5 +1,5 @@
 # RupeeCheck
-
+![Dart CI](https://github.com/byionline/RupeeCheck/workflows/Dart%20CI/badge.svg)
 A new Flutter project.
 
 ## Getting Started
