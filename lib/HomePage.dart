@@ -109,4 +109,11 @@ class _HomePageState extends State<HomePage> {
       _isOutput = output;
     });
   }
+  // Close the Tflite operation
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    Tflite.close();
+  }
 }
