@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   // async & await is used for future task operations
   modelFn() async{
     await Tflite.loadModel(
-        //model: "assets/model_unquant.tflite",
+        model: "assets/model_unquant.tflite",
         labels: "assets/labels.txt"
     );
   }
