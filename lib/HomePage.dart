@@ -51,6 +51,27 @@ class _HomePageState extends State<HomePage> {
         alignment: Alignment.center,
         child: CircularProgressIndicator(),
       ) : Container(
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _isImage == null ? Container() : Image.file(_isImage),
+              SizedBox(
+                height: 20,
+              ),
+              _isOutput != null
+                  ? Text(
+                "${_isOutput[0]["label"]}",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                  background: Paint()..color = Colors.white,
+                ),
+              )
+                  : Container()
+            ],
+          )
       ),
       // Add Floating Button at the bottom to select image from the gallery
       floatingActionButton: FloatingActionButton(
