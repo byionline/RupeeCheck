@@ -1,7 +1,7 @@
-//import 'dart:io';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
-//import 'package:image_picker/image_picker.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tflite/tflite.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _isLoading = false;
-  //File _isImage;
+  File _isImage;
   //List _isOutput;
 
   // App will work offline so model needs to load first
@@ -57,11 +57,21 @@ class _HomePageState extends State<HomePage> {
       ),
       // Add Floating Button at the bottom to select image from the gallery
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.image)
-
+        child: Icon(Icons.image),
+        onPressed: selectImage,
       ),
     );
   }
 
 
+  // Select Image From Gallery Function Called when FloatingActionButton is pressed
+  selectImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    if (image == null) return null;
+    setState(() {
+      _isLoading  = true;
+      _isImage = image;
+    });
+    
+  }
 }
