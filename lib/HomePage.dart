@@ -12,34 +12,31 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool _isLoading = false;
   File _isImage;
-  //List _isOutput;
+  List _isOutput;
 
   // App will work offline so model needs to load first
   @override
   void initState() {
     // TODO: implement initState
-      super.initState();
-      _isLoading = true;
-      // Call the function to load Machine Learning model from assets directory
-      modelFn().then((value) {
-        setState(() {
-          // When tflite model gets loaded CircularProgress stops
-          _isLoading = false;
-        });
+    super.initState();
+    _isLoading = true;
+    // Call the function to load Machine Learning model from assets directory
+    modelFn().then((value) {
+      setState(() {
+        // When tflite model gets loaded CircularProgress stops
+        _isLoading = false;
       });
+    });
   }
 
   // Function to load Machine Learning model (tflite) in this case
   // async & await is used for future task operations
-  modelFn() async{
+  modelFn() async {
     await Tflite.loadModel(
         model: "assets/model_unquant.tflite",
         labels: "assets/labels.txt"
     );
   }
-
-
-
 
 
   @override
@@ -58,6 +55,7 @@ class _HomePageState extends State<HomePage> {
       // Add Floating Button at the bottom to select image from the gallery
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.image),
+        // Call to selectImage()
         onPressed: selectImage,
       ),
     );
@@ -69,9 +67,25 @@ class _HomePageState extends State<HomePage> {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
     if (image == null) return null;
     setState(() {
-      _isLoading  = true;
+      _isLoading = true;
       _isImage = image;
     });
-    
+    // Call to classifyImage(image)
+    classifyImage(image);
+  }
+
+  // Selected Image From Gallery is Classified and store output
+  classifyImage(File image) async {
+    var output = await Tflite.runModelOnImage(
+      path: image.path,
+      numResults: 3,  // 3 types of image classification
+      threshold: 0.5,
+      imageMean: 127.5,
+      imageStd: 127.5,
+    );
+    setState(() {
+      _isLoading = false;
+      _isOutput = output;
+    });
   }
 }
