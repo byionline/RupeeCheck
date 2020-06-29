@@ -55,7 +55,11 @@ class _HomePageState extends State<HomePage> {
         child: CircularProgressIndicator(),
       ) : Container(
       ),
+      // Add Floating Button at the bottom to select image from the gallery
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.image)
 
+      ),
     );
   }
 
