@@ -19,6 +19,16 @@ class _HomePageState extends State<HomePage> {
       _isLoading = true;
   }
 
+  // Function to load Machine Learning model (tflite) in this case
+  // async & await is used for future task operations
+  modelFn() async{
+    await Tflite.loadModel(
+        model: "assets/model_unquant.tflite",
+        labels: "assets/labels.txt"
+    );
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
