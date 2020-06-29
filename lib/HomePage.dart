@@ -1,4 +1,7 @@
+//import 'dart:io';
+
 import 'package:flutter/material.dart';
+//import 'package:image_picker/image_picker.dart';
 import 'package:tflite/tflite.dart';
 
 class HomePage extends StatefulWidget {
@@ -8,8 +11,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _isLoading = false;
-  //File _image;
-  //List _output;
+  //File _isImage;
+  //List _isOutput;
 
   // App will work offline so model needs to load first
   @override
@@ -17,16 +20,25 @@ class _HomePageState extends State<HomePage> {
     // TODO: implement initState
       super.initState();
       _isLoading = true;
+      // Call the function to load Machine Learning model from assets directory
+      modelFn().then((value) {
+        setState(() {
+          // When tflite model gets loaded CircularProgress stops
+          _isLoading = false;
+        });
+      });
   }
 
   // Function to load Machine Learning model (tflite) in this case
   // async & await is used for future task operations
   modelFn() async{
     await Tflite.loadModel(
-        model: "assets/model_unquant.tflite",
+        //model: "assets/model_unquant.tflite",
         labels: "assets/labels.txt"
     );
   }
+
+
 
 
 
@@ -42,8 +54,10 @@ class _HomePageState extends State<HomePage> {
         alignment: Alignment.center,
         child: CircularProgressIndicator(),
       ) : Container(
-
       ),
+
     );
   }
+
+
 }
