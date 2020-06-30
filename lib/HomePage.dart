@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _isLoading = false;
+  final _picker = ImagePicker();
   File _isImage;
   List _isOutput;
 
@@ -85,14 +86,14 @@ class _HomePageState extends State<HomePage> {
 
   // Select Image From Gallery Function Called when FloatingActionButton is pressed
   selectImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    final image = await _picker.getImage(source: ImageSource.gallery);
     if (image == null) return null;
     setState(() {
       _isLoading = true;
-      _isImage = image;
+      _isImage = File(image.path);
     });
     // Call to classifyImage(image)
-    classifyImage(image);
+    classifyImage(File(image.path));
   }
 
   // Selected Image From Gallery is Classified and store output
